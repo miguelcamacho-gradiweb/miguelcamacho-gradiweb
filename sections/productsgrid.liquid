@@ -1,0 +1,77 @@
+{{ 'productsgrid.css' | asset_url | stylesheet_tag }}
+
+{% assign maxLimit = collection.products_count %}
+
+<section class="productsGrid row col-12 col-sm-10 mx-auto p-0">
+    <div class="productsGrid__titule col-12 col-sm-10 mx-auto mt-3 mb-3">
+        <h2>Products</h2>
+    </div>
+    <div class="preferencesProduct row mx-auto mb-3">
+        <div class="preferencesProduct__collection col-12 col-sm-10 col-md-6">
+            <h3>Select the collection of your preference</h3>
+            <select name="selectCollection">
+                <option value="value1" selected>Verano</option>
+                <option value="value2">Invierno</option>
+            </select>
+        </div>
+
+        <div class="preferencesProduct__range col-12 col-sm-10 col-md-6">
+            <h3>How many products do you want to see</h3>
+            <div class="preferencesProduct__range--details">
+                <input id="rangeLimit" type="range" step="1" min="0" value="{{ maxLimit }}" max="{{ maxLimit }}" list="tickmarks">
+                <p id="seeRange" class="ml-2">{{ maxLimit }} Products</p>
+                <datalist id="tickmarks" name="{{ collection.products_count }}">
+            </datalist>
+            </div>
+        </div>
+    </div>
+
+    <article class="listProduct disposition row mx-auto">
+        {% for product in collection.products limit: maxLimit %}
+        <form name="form_buy" class="col-12 col-sm-11 col-md-4 mb-2">
+            <div class="product">
+                <div class="product__render">
+                    <a href="{{ product.url }}">{{ product.title }}</a>
+                    <img src="{{ product.featured_image | image_url }}" alt="{{ product.featured_image.alt | escape}}"
+                        loading="lazy" width="200" height="200" id="{{ product.id }}">
+                    <p onclick=adios()>Price: {{ product.price | money }}  </p>
+                </div>
+                <div class="product_variants">
+                    {% for variant in product.variants %}
+                    {% if variant.available != false %}
+                    <img src="{{ variant.featured_image | image_url }}" alt="{{ variant.featured_image.alt | escape}}"
+                        loading="lazy" width="50" height="50" name="{{ variant.featured_image.product_id }}" id="{{ variant.id }}">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="product__buy">
+                    <p id="{{ product.id }}"  class="buy_car">Buy product</p>
+                </div>
+            </div>
+
+        </form>
+        {% endfor %}
+    </article>
+</section>
+
+<script src="{{ 'productsgrid.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'carbuy.js' | asset_url }}" defer="defer"></script>
+
+
+{% schema %}
+{
+    "name": "t:sections.main-collection-product-grid.name",
+    "settings":[
+        {
+        "type": "range",
+        "id": "id_range",
+        "label": "label",
+        "unit": "u",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 1
+        }
+    ]
+}
+{% endschema %}

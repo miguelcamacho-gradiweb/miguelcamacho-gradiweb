@@ -18,6 +18,17 @@
   }
 {%- endstyle -%}
 
+<!-- esta es la manera de llamar una objeto coleccion en un template diferente -->
+{% assign collection = collections["frontpage"] %}
+
+{{ collection.products | json }}
+{% for product in collection.products %}
+    <div>
+        {{product.title}}
+    </div>
+<!-- para llamar una segunda coleccion le cambio a la name a la variable -->
+
+{% endfor %}
 <div class="page-width page-width--narrow section-{{ section.id }}-padding">
   <h1 class="main-page-title page-title h0">
     {{ page.title | escape }}
