@@ -1,0 +1,93 @@
+.disposition{
+    flex-wrap: wrap;
+}
+
+select {
+    background: gainsboro;
+    border: none;
+    font-size: 14px;
+    height: 30px;
+    padding: 5px;
+    width: 250px;
+ }
+
+.selectCollection {
+    margin:20px auto 40px auto;	
+    border:1px solid #d9d9d9;
+    height:30px;
+    overflow: hidden;
+    width: 230px;
+    position:relative;
+ }
+
+ select:focus{ outline: none;}
+ 
+ .selectCollection::after{
+     content:"\025be";
+     display:table-cell;
+     padding-top:7px;
+     text-align:center;
+     width:30px;
+     height:30px;
+     background-color:#d9d9d9;
+     position:absolute;
+     top:0;
+     right:0px;	
+     pointer-events: none;
+ }
+
+.preferencesProduct{
+    margin-bottom: 2rem;
+}
+
+.preferencesProduct__range--details{
+    display: flex;
+    justify-content: flex-start;
+    font-size: 2rem;
+}
+
+.product{
+    color: rgb(133, 182, 59);
+    text-align: center;
+    border: 1px solid black;
+    width: 220px;
+    margin: auto;
+}
+
+.product p{
+    font-size: 2rem;
+}
+
+.product__render{
+    padding: 1rem;
+}
+
+.product__render a{
+    text-decoration: none;
+    color: black;
+}
+
+.product__render h3{
+    font-size: 2.5rem;
+}
+
+.product__buy p{
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    margin: 0;
+    width: 100%;
+    border: none;
+    font-size: 2.5rem;
+}
+
+.product__buy p:hover{
+    background-color: rgb(54, 54, 54);
+}
+
+.product_variants {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
