@@ -1,0 +1,8 @@
+.minicart {
+    position: fixed;
+    height: 100vh;
+    background-color: aquamarine;
+    z-index: 100;
+    right: 0;
+    top: 0;
+}

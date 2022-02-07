@@ -1,7 +1,11 @@
 let buy_car = document.querySelectorAll(".buy_car");
+let minicart_name = document.getElementById("minicart_name");
 
-const buyProduct = async (id, url) => {
-  const id_NUmber = parseInt(id);
+const buyProduct = async (variantData, url) => {
+
+  const id_NUmber = parseInt(variantData.id);
+  console.log(variantData)
+  // minicart_name.innerHTML =
   console.log(id_NUmber)
   let formData = {
     items: [
@@ -20,7 +24,7 @@ const buyProduct = async (id, url) => {
     body: JSON.stringify(formData),
   })
     .then((response) => { 
-      window.location.assign("https://miguelcamacho-gradi-store.myshopify.com/cart");
+      // window.location.assign("https://miguelcamacho-gradi-store.myshopify.com/cart");
       return response.json();
     })
     .catch((error) => {
@@ -35,9 +39,3 @@ buy_car.forEach((product) => {
     buyProduct(e.target.id);
   });
 });
-
-
-const adios = (e) =>{
-  console.log(e)
-  console.log("prueba")
-}
