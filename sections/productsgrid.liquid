@@ -11,7 +11,7 @@
 
 <input type="hidden" name="" id="insta-clientid" value="{{ collection | json}}" />
 
-<section class="productsGrid row col-12 col-sm-10 mx-auto p-0">
+<section class="productsGrid row col-12 mx-auto p-0 m-0">
     <div class="productsGrid__titule col-12 col-sm-10 mx-auto mt-3 mb-3">
         <h2>Products</h2>
     </div>
@@ -67,7 +67,6 @@
     </article>
 </section>
 
-<button onclick="hola3()")>hola</button>
 
 <script src="{{ 'productsgrid.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'carbuy.js' | asset_url }}" defer="defer"></script>
@@ -81,6 +80,11 @@
 
     const newCollection = (handle)=>{
        console.log(handle)
+       const proof1 = {{collections.handle.products | json }}
+       console.log(proof1);
+       
+       const proof  = {{collections.technology.products | json }}
+       console.log(proof)
     }
 
 </script>

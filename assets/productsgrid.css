@@ -1,3 +1,7 @@
+.productsGrid{
+    position: relative;
+}
+
 .disposition{
     flex-wrap: wrap;
 }
