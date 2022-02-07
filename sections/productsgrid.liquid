@@ -1,19 +1,31 @@
 {{ 'productsgrid.css' | asset_url | stylesheet_tag }}
 
-{% assign maxLimit = collection.products_count %}
+{% assign maxLimit = collections["technology"].products_count %}
+{% assign maxLimit = collections["frontpage"].products_count %}
+
+{% assign collection = collections %}
+{%- comment -%}{%- endcomment -%}
+{% assign technology = collections.technology.products %}
+{% assign frontpage = collections.frontpage.products  %}
+
+
+<input type="hidden" name="" id="insta-clientid" value="{{ collection | json}}" />
 
 <section class="productsGrid row col-12 col-sm-10 mx-auto p-0">
     <div class="productsGrid__titule col-12 col-sm-10 mx-auto mt-3 mb-3">
         <h2>Products</h2>
     </div>
+ 
     <div class="preferencesProduct row mx-auto mb-3">
         <div class="preferencesProduct__collection col-12 col-sm-10 col-md-6">
             <h3>Select the collection of your preference</h3>
-            <select name="selectCollection">
-                <option value="value1" selected>Verano</option>
-                <option value="value2">Invierno</option>
+            <select name="selectCollection" id="selectCollectionId">
+                {% for collection in collection %}
+                <option value="{{ collection.id }}" >{{ collection.title}}</option>
+                {% endfor %}
             </select>
         </div>
+
 
         <div class="preferencesProduct__range col-12 col-sm-10 col-md-6">
             <h3>How many products do you want to see</h3>
@@ -25,37 +37,53 @@
             </div>
         </div>
     </div>
+ 
 
     <article class="listProduct disposition row mx-auto">
-        {% for product in collection.products limit: maxLimit %}
-        <form name="form_buy" class="col-12 col-sm-11 col-md-4 mb-2">
-            <div class="product">
-                <div class="product__render">
-                    <a href="{{ product.url }}">{{ product.title }}</a>
-                    <img src="{{ product.featured_image | image_url }}" alt="{{ product.featured_image.alt | escape}}"
-                        loading="lazy" width="200" height="200" id="{{ product.id }}">
-                    <p onclick=adios()>Price: {{ product.price | money }}  </p>
+        
+        {% for product in frontpage %}
+            <form name="form_buy" class="col-12 col-sm-11 col-md-4 mb-2">
+                <div class="product">
+                    <div class="product__render">
+                        <a href="{{ product.url }}">{{ product.title }}</a>
+                        <img src="{{ product.featured_image | image_url }}" alt="{{ product.featured_image.alt | escape}}"
+                            loading="lazy" width="200" height="200" id="{{ product.id }}">
+                        <p onclick=adios()>Price: {{ product.price | money }}  </p>
+                    </div>
+                    <div class="product_variants">
+                        {% for variant in product.variants %}
+                        {% if variant.available != false %}
+                        <img src="{{ variant.featured_image | image_url }}" alt="{{ variant.featured_image.alt | escape}}"
+                            loading="lazy" width="50" height="50" name="{{ variant.featured_image.product_id }}" id="{{ variant.id }}">
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="product__buy">
+                        <p id="{{ product.id }}"  class="buy_car">Buy product</p>
+                    </div>
                 </div>
-                <div class="product_variants">
-                    {% for variant in product.variants %}
-                    {% if variant.available != false %}
-                    <img src="{{ variant.featured_image | image_url }}" alt="{{ variant.featured_image.alt | escape}}"
-                        loading="lazy" width="50" height="50" name="{{ variant.featured_image.product_id }}" id="{{ variant.id }}">
-                    {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="product__buy">
-                    <p id="{{ product.id }}"  class="buy_car">Buy product</p>
-                </div>
-            </div>
-
-        </form>
+            </form>
         {% endfor %}
     </article>
 </section>
 
+<button onclick="hola3()")>hola</button>
+
 <script src="{{ 'productsgrid.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'carbuy.js' | asset_url }}" defer="defer"></script>
+
+
+<script>
+    window.onload = function() {
+        let collection = {{ collections | json }}
+        collectionData(collection)
+    }
+
+    const newCollection = (handle)=>{
+       console.log(handle)
+    }
+
+</script>
 
 
 {% schema %}

@@ -12,6 +12,9 @@ const buyProduct = async (id, url) => {
     ],
   };
 
+  
+  
+
   const promiseBuyCar = await fetch("/cart/add.js", {
     method: "POST",
     headers: {
@@ -36,8 +39,3 @@ buy_car.forEach((product) => {
   });
 });
 
-
-const adios = (e) =>{
-  console.log(e)
-  console.log("prueba")
-}
