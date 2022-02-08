@@ -12,9 +12,6 @@ const buyProduct = async (id, url) => {
     ],
   };
 
-  
-  
-
   const promiseBuyCar = await fetch("/cart/add.js", {
     method: "POST",
     headers: {
@@ -22,15 +19,22 @@ const buyProduct = async (id, url) => {
     },
     body: JSON.stringify(formData),
   })
-    .then((response) => { 
-      window.location.assign("https://miguelcamacho-gradi-store.myshopify.com/cart");
+    .then((response) => {
+      // if(response.status == 200){
+      //   console.log(response.json())
+      // }
+      // window.location.assign("https://miguelcamacho-gradi-store.myshopify.com/cart");
       return response.json();
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 
-  console.log(promiseBuyCar);
+    if(promiseBuyCar.items.length > 0){
+      getCarProduct(promiseBuyCar.items)
+    }
+    
+    // console.log(promiseBuyCar)
 };
 
 buy_car.forEach((product) => {
@@ -38,4 +42,5 @@ buy_car.forEach((product) => {
     buyProduct(e.target.id);
   });
 });
+
 

@@ -4,6 +4,7 @@ let p_product = document.querySelectorAll(".product__buy p");
 selectCollectionId = document.getElementById("selectCollectionId")
 const sizeImg_product = img_product.length
 let data = null
+let variante = null
 let sizeData = null
 
 const collectionData =(collection)=>{
@@ -11,11 +12,19 @@ const collectionData =(collection)=>{
     sizeData = data.length
 }
 
+const collectionVariants =(dataVariante)=>{
+    variante = dataVariante
+    console.log(variante);
+    
+}
+
 
 const changeCollection = (e)=>{
     for (let i = 0; i < sizeData; i++) {
-        if(data[i].id ==  e.target.value){
-            newCollection(data[i].handle)
+        if(data[i].id !=  e.target.value){
+            document.querySelector(`.${data[i].handle}`).style.display = "none"
+        } else {
+            document.querySelector(`.${data[i].handle}`).style.display = "block"
         }
     }
 }
