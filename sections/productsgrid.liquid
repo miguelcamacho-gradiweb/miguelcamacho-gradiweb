@@ -1,13 +1,15 @@
 {{ 'productsgrid.css' | asset_url | stylesheet_tag }}
 
 {% assign maxLimit = collections["technology"].products_count %}
-{% assign maxLimits = collections["frontpage"].products_count %}
 
 {% assign collection = collections %}
 {%- comment -%}
     <input type="hidden" name="" id="insta-clientid" value="{{ collection | json}}" />
 {%- endcomment -%}
 
+<script>
+    let dataVariants = []
+</script>
 
 <section class="productsGrid row col-12 mx-auto p-0 m-0">
     <div class="productsGrid__titule col-12 col-sm-10 mx-auto mt-3 mb-3">
@@ -24,7 +26,6 @@
             </select>
         </div>
 
-
         <div class="preferencesProduct__range col-12 col-sm-10 col-md-6">
             <h3>How many products do you want to see</h3>
             <div class="preferencesProduct__range--details">
@@ -36,7 +37,6 @@
         </div>
     </div>
 
-
     <article class="listProduct disposition col-10 row mx-auto ">
         {% for item in collections %}
             <div class = "{{ item.handle}} col-12" >
@@ -47,31 +47,38 @@
                                 <a href="{{ product.url }}">{{ product.title }}</a>
                                 <img src="{{ product.first_available_variant.featured_image | image_url }}" alt="{{ product.featured_image.alt | escape}}"
                                     loading="lazy" width="200" height="200" id="{{ product.id }}">
-                                <p onclick=adios()>Price: {{ product.price | money }}  </p>
+                                <p>Price: {{ product.price | money }}  </p>
                             </div>
                             <div class="product_variants">
                                 {% for variant in product.variants %}
                                 {% if variant.available != false %}
                                 <img src="{{ variant.featured_image | image_url }}" alt="{{ variant.featured_image.alt | escape}}"
                                     loading="lazy" width="50" height="50" name="{{ variant.featured_image.product_id }}" id="{{ variant.id }}">
+                                    <script>
+                                        dataVariants.push({{ variant | json }});
+                                    </script>
                                 {% endif %}
                                 {% endfor %}
                             </div>
                             <div class="product__buy">
-                                <p id="{{ product.first_available_variant.id }}"  class="buy_car">Buy product</p>
+                                <p id="{{ product.first_available_variant.id }}" class="buy_car">Buy product</p>
                             </div>
                         </div>
                     </form>
+                  
                 {% endfor %}
             </div>
         {% endfor %}
+        <script>
+           
+      </script>
     </article>
     <div class="minicart col-11 col-md-5" >
         <div class="minicart__header">
             <h2>Tus productos</h2>
             <i class="fas fa-window-close"></i>
         </div>
-        <div class="minicart__list ">
+        <div class="minicart__list">
         </div>
     </div>
 </section>
@@ -79,16 +86,16 @@
 
 
 <script src="{{ 'productsgrid.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'editcart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'carbuy.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'getcart.js' | asset_url }}" defer="defer"></script>
-
-
 
 <script>
     window.onload = function() {
         let collection = {{ collections | json }}
         collectionData(collection)
     }
+
 </script>
 
 

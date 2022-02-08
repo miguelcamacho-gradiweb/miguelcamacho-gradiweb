@@ -124,7 +124,11 @@ select {
 }
 
 .minicart__list img {
-    width: 20%;
+    width: 40%;
+}
+
+.minicart__list--render i{
+    cursor: pointer;
 }
 
 
