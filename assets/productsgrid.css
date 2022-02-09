@@ -21,7 +21,7 @@ select {
     font-size: 14px;
     height: 30px;
     padding: 5px;
-    width: 250px;
+    width: 150px;
  }
 
 .selectCollection {
@@ -179,7 +179,7 @@ select {
 
 .minicart__list--select {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-wrap: wrap;
 }
 
