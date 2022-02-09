@@ -1,9 +1,18 @@
-/* .productsGrid{
-    position: relative;
-} */
-
 .disposition{
     flex-wrap: wrap;
+}
+
+.lisproduct__grid h2{
+    font-size: 2.5rem;
+    margin: 0.5rem 0;
+}
+
+.lisproduct__grid--render{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.4rem solid rgb(201, 201, 201);
 }
 
 select {
@@ -86,7 +95,9 @@ select {
 }
 
 .product__buy p:hover{
-    background-color: rgb(54, 54, 54);
+    color: black;
+    background-color: rgb(255, 255, 255);
+    box-shadow: inset 0 0 1px 0 rgb(5, 5, 5)
 }
 
 .product_variants {
@@ -96,22 +107,40 @@ select {
     cursor: pointer;
 }
 
-
 /* --------minicart---------- */
-.minicart {
+.minicartShade{
     position: fixed;
     height: 100%;
-    border: 1px solid black;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(97, 97, 97, 0.493);
+    right: 0;
+    top: 0;
+    z-index: 100;
+    display: none;
+
+}
+
+.minicart {
+    position: absolute;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.97);
     right: 0;
     top: 0;
     z-index: 100;
     overflow: scroll;
-    display: none;
 }
 
+
 .minicart__header{
-    position: fixed;
+    height: 20%;
+    background-color: white;
+    text-align: center;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+}
+
+.minicart__header h2{
+    font-size: 2.3rem;
 }
 
 .minicart__header i {
@@ -121,16 +150,37 @@ select {
 .minicart__list {
     text-align: center;
     margin: auto;
+    height: 80%;
 }
 
 .minicart__list img {
     width: 40%;
 }
 
+.minicart__list--render{
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 0.3rem solid rgb(180, 180, 180);
+}
+
 .minicart__list--render i{
     cursor: pointer;
 }
 
+.minicart__list--render p{
+    font-size: 2rem;
+    color: rgb(4, 131, 4);
+}
 
+.minicart__list--delete{
+    display: flex;
+    justify-content: end;
+}
+
+.minicart__list--select {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
 
 

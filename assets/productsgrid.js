@@ -20,11 +20,19 @@ const collectionVariants =(dataVariante)=>{
 
 
 const changeCollection = (e)=>{
-    for (let i = 0; i < sizeData; i++) {
-        if(data[i].id !=  e.target.value){
-            document.querySelector(`.${data[i].handle}`).style.display = "none"
-        } else {
-            document.querySelector(`.${data[i].handle}`).style.display = "block"
+
+    console.log(e.target.value)
+    if (e.target.value == "all") {
+        for (let i = 0; i < sizeData; i++) {
+                document.querySelector(`.${data[i].handle}`).style.display = "block"
+        }
+    } else {
+        for (let i = 0; i < sizeData; i++) {
+            if(data[i].id !=  e.target.value){
+                document.querySelector(`.${data[i].handle}`).style.display = "none"
+            } else {
+                document.querySelector(`.${data[i].handle}`).style.display = "block"
+            }
         }
     }
 }

@@ -2,18 +2,41 @@ let getBuy_car = document.querySelectorAll(".buy_car");
 // let fragment = document.createDocumentFragment()
 let minicartI = document.querySelector(".minicart__header i");
 let minicart = document.querySelector(".minicart");
+let minicartShade = document.querySelector(".minicartShade");
 
 let editProductCar = []
 
-console.log(dataVariants)
-
 const popUpCar = () => {
 
-  minicart.style.display = "none";
+  minicartShade.style.display = "none";
 };
 
 minicartI.addEventListener("click", popUpCar);
 
+const editProduct = async (nameId) => {
+  console.log(nameId)
+  const id_NUmber = parseInt(nameId);
+  let formDataedit =  { quantity: 10, id: id_NUmber }
+
+  const promiseEditCar = await fetch("/cart/update.js", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formDataedit)
+  })
+    .then((response) => {
+      console.log(response);
+      
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+
+    console.log(promiseEditCar)
+    
+};
 
 const setEventButtonDelete = ()=> {
   let editProductCarProof = document.querySelectorAll(".minicart__list--delete");
@@ -21,7 +44,7 @@ const setEventButtonDelete = ()=> {
 
   nuewVar.forEach((editproduct) => {
     editproduct.addEventListener("click", (e) => {
-        editProduct(e.target.name);
+        editProduct(e.target.id);
     });
   });
 }
@@ -81,12 +104,12 @@ let minicartList = document.querySelector(".minicart__list");
       img.setAttribute("src", `${promiseGetCar.items[i].image}`);
       div.setAttribute("class", `minicart__list--render`);
       divI.setAttribute("class",`minicart__list--delete`);
-      divI.setAttribute("name",`${promiseGetCar.items[i].id}`);
+      iElement.setAttribute("id",`${promiseGetCar.items[i].id}`);
       iElement.setAttribute("class",`fas fa-trash-alt delete__${promiseGetCar.items[i].id}`);
 
       h3.innerHTML = `${promiseGetCar.items[i].product_title}`;
       label.innerHTML = "change the amount";
-      p.innerHTML = `${promiseGetCar.items[i].final_price}`;
+      p.innerHTML = `${promiseGetCar.items[i].final_price} $`;
 
       divSelect.appendChild(label)
       divSelect.appendChild(select)
@@ -95,13 +118,13 @@ let minicartList = document.querySelector(".minicart__list");
       divI.appendChild(iElement)
       div.appendChild(divI);
       div.appendChild(p);
+      div.appendChild(divSelect);
       divMinicartList.appendChild(div);
-      divMinicartList.appendChild(divSelect);
     }
 
     minicart.replaceChild(divMinicartList, minicartList); 
     
-    minicart.style.display = "block"
+    minicartShade.style.display = "block"
 
     editProductCar = document.querySelectorAll(".minicart__list--delete");
     console.log(editProductCar);
@@ -112,38 +135,13 @@ let minicartList = document.querySelector(".minicart__list");
 };
 
 
-const editProduct = async (nameId, url) => {
-  console.log(nameId)
-  const id_NUmber = parseInt(nameId);
-  console.log(id_NUmber)
-  let formData = {
-    id: id_NUmber,
-    quantity: 0
-  };
 
-  const promiseEditCar = await fetch("/cart/change.js", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
 
-    console.log(promiseEditCar)
-    
-};
-
-editProductCar.forEach((editproduct) => {
-    editproduct.addEventListener("click", (e) => {
-        editProduct(e.target.name);
-    });
-  });
+// editProductCar.forEach((editproduct) => {
+//     editproduct.addEventListener("click", (e) => {
+//         editProduct(e.target.name);
+//     });
+//   });
 
 
   
